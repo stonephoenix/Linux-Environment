@@ -1,0 +1,87 @@
+-- Edit as super user
+$ gksu nautilus           # browse files as root
+$ gksu gedit /etc/apt/sources.list   # edit file as root
+-- add mirrors
+deb mirror://mirrors.ubuntu.com/mirrors.txt precise main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt precise-updates main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt precise-backports main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt precise-security main restricted universe multiverse
+
+-- Motherboard
+http://www.supermicro.com/products/motherboard/Xeon/C600/X10DAi.cfm
+
+-- Install Enternet 
+Network Adapter Driver for 82575/6, 82580, I350, and I210/211-Based Gigabit Network Connections for Linux*
+https://downloadcenter.intel.com/download/13663/Network-Adapter-Driver-for-82575-6-82580-I350-and-I210-211-Based-Gigabit-Network-Connections-for-Linux-
+Unzip, cd /src, 
+sudo make
+sudo make install
+
+-- Install Java
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+-- Install NVIDIA
+-- http://www.binarytides.com/install-nvidia-drivers-ubuntu-14-04/ 
+$ lspci -vnn | grep -i VGA -A 12
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GT218 [GeForce 210] [10de:0a65] (rev a2) (prog-if 00 [VGA controller])
+        Subsystem: ASUSTeK Computer Inc. Device [1043:8416]
+--Find out the right driver version for your graphics card
+--Visit http://www.nvidia.com/Download/index.aspx
+-- Don't download, just take a note of the version number 352.63
+$ sudo add-apt-repository ppa:xorg-edgers/ppa -y
+$ sudo apt-get update
+$ sudo apt-get install nvidia-352
+$ sudo apt-get install nvidia-current
+$ sudo software-properties-gtk
+--Settings > Repositories > Additional Drivers, select the correct version
+--Reboot
+$ nvidia-settings
+$ glxinfo | grep OpenGL  -----check
+OpenGL vendor string: NVIDIA Corporation
+OpenGL renderer string: GeForce GTX 560 Ti/PCIe/SSE2
+OpenGL core profile version string: 4.3.0 NVIDIA 352.63
+OpenGL core profile shading language version string: 4.30 NVIDIA via Cg compiler
+OpenGL core profile context flags: (none)
+OpenGL core profile profile mask: core profile
+OpenGL core profile extensions:
+OpenGL version string: 4.5.0 NVIDIA 352.63
+OpenGL shading language version string: 4.50 NVIDIA
+OpenGL context flags: (none)
+OpenGL profile mask: (none)
+OpenGL extensions:
+...
+---After installing Nividia Drive, install CUDA
+--- Be sure using the latest version of driver, ie not download from website, using ppa:xorg...
+http://www.r-tutor.com/gpu-computing/cuda-installation/cuda7.5-ubuntu
+--- Install Cudnn
+--- Download Cudnn, unzip and copy some files to cuda library
+cd cudnn-6.5-linux-R1
+$ sudo cp lib64/* /usr/local/cuda/lib64/
+$ sudo cp include/cudnn.h /usr/local/cuda/include/
+
+-- Install R
+$ sudo gedit /etc/apt/sources.list
+---This will open up your sources.list file in gedit, where you can add the following line.
+deb http://mirror.las.iastate.edu/CRAN/bin/linux/ubuntu trusty/
+$ gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+OR
+$ gpg --hkp://keyserver keyserver.ubuntu.com:80 --recv-key E084DAB9
+$ gpg -a --export E084DAB9 | sudo apt-key add -
+---If first time install R
+$ sudo apt-get update
+$ sudo apt-get install r-base
+---If R is already installed and need upgrade
+$ sudo apt-get update && sudo apt-get upgrade
+
+-- Cchange Python package location from py2 to py3
+virtualenv -p /usr/bin/python3 py3env
+source py3env/bin/activate
+pip install package-name
+-- create a new folder in current directory, then add the address manually to spyder
+
+==============================
+Windows install xgboost
+==============================
+Install Rtools, then compile xgboost
