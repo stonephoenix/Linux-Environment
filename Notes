@@ -80,6 +80,10 @@ virtualenv -p /usr/bin/python3 py3env
 source py3env/bin/activate
 pip install package-name
 -- create a new folder in current directory, then add the address manually to spyder
+==============================
+Ubuntu Ipython Notebook 'add python' not shown
+==============================
+sudo apt-get remove --purge ipython
 
 ==============================
 Windows install xgboost
