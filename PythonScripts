@@ -1,0 +1,4 @@
+# execute shell in Python and capture output
+import subprocess
+dir = subprocess.check_output(['ls', '-l'])
+dir = dir.split('\n')
