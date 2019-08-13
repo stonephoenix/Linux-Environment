@@ -10,3 +10,6 @@ $ pip uninstall -y horovod
 $ conda install gcc_linux-64 gxx_linux-64
 $ [flags] pip install --no-cache-dir horovod
 ```
+# Other
+## sclite 2.10
+http://www.openslr.org/resources/4/sctk-2.4.10-20151007-1312Z.tar.bz2
